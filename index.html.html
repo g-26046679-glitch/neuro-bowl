@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Neuro Bowl – Biology Form 4 Chapter 12</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@500;700;800&display=swap">
+<style>
+:root{--bg:#10222f;--panel:#183446;--ink:#f3ecd9;--mute:#9db4c0;--wood:#c98f4a;--wood2:#a9722f;--accent:#ff6a3d;--good:#4fd18b;--bad:#ff5f6d;--line:#2b5169;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#eaf1f4;--panel:#fff;--ink:#14222b;--mute:#4d6572;--line:#bcd0da;--good:#16895a;--bad:#c93545}}
+:root[data-theme="dark"]{--bg:#10222f;--panel:#183446;--ink:#f3ecd9}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'Nunito','Segoe UI',Arial,sans-serif;font-weight:500;line-height:1.45}
+.wrap{max-width:760px;margin:0 auto;padding:14px}
+h1{font-family:'Bungee','Impact',sans-serif;font-weight:400;font-size:clamp(24px,6vw,36px);margin:4px 0 2px;letter-spacing:.5px}
+.sub{color:var(--mute);margin:0 0 12px;font-size:14px}
+.card{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel);margin-bottom:12px}
+table{border-collapse:collapse;width:100%;min-width:560px;text-align:center}
+td,th{border:1px solid var(--line);padding:0;height:30px;font-weight:800}
+th{font-size:12px;color:var(--mute);height:22px}
+.m{display:flex}.m span{flex:1;height:24px;line-height:24px;font-size:14px}
+.m span+span{border-left:1px solid var(--line)}
+.tot{height:30px;line-height:30px;font-size:16px}
+td.cur{outline:2px solid var(--accent);outline-offset:-2px}
+.lane{border-radius:10px;overflow:hidden;border:1px solid var(--line);margin-bottom:12px;position:relative}
+svg{display:block;width:100%;height:auto;max-height:300px;background:#0a1620}
+.pin{transition:transform .5s ease,opacity .5s ease;transform-box:fill-box;transform-origin:center}
+.pin.down{opacity:.12;transform:translateY(-14px) rotate(70deg)}
+#ball{transition:transform 1s cubic-bezier(.3,.1,.5,1)}
+#flash{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Bungee','Impact',sans-serif;font-size:clamp(38px,12vw,72px);color:var(--accent);text-shadow:0 3px 0 #000;opacity:0;pointer-events:none;transition:opacity .25s}
+#flash.on{opacity:1}
+.mute{position:absolute;right:0;top:6px;font:inherit;font-weight:800;font-size:13px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:8px 14px;cursor:pointer;min-height:40px}.mute:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.who{display:flex;gap:8px;margin:0 0 12px}.who input{font:inherit;font-weight:700;flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:2px solid var(--line);background:var(--panel);color:var(--ink);min-height:44px}.who input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}.res{border:2px dashed var(--accent);border-radius:10px;padding:12px;margin:12px 0;font-weight:800;text-align:left}
+.q{padding:16px}.tag{font-size:13px;color:var(--mute);margin:0 0 6px}
+.q h2{font-size:clamp(17px,4.5vw,21px);margin:0 0 12px;line-height:1.35;font-weight:800}
+.opts{display:grid;gap:8px}
+.opt{font:inherit;font-weight:700;text-align:left;color:var(--ink);background:transparent;border:2px solid var(--line);border-radius:10px;padding:11px 12px;cursor:pointer;min-height:44px}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.opt.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 22%,transparent)}
+.opt.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 22%,transparent)}
+.opt:disabled{cursor:default}
+.fb{margin:12px 0 0;padding:10px 12px;border-left:4px solid var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);border-radius:0 8px 8px 0}
+.btn{font:inherit;font-weight:800;background:var(--accent);color:#1a0d07;border:0;border-radius:10px;padding:12px 20px;cursor:pointer;margin-top:12px;min-height:44px}
+.end{text-align:center;padding:24px 16px}.end .big{font-family:'Bungee','Impact',sans-serif;font-size:56px;color:var(--accent);margin:0}
+@media (prefers-reduced-motion:reduce){#ball,.pin{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap" style="position:relative">
+<button class="mute" id="mute" aria-pressed="false">🔊 Sound on</button>
+<h1>Neuro Bowl</h1>
+<p class="sub">Biology Form 4 · Chapter 12 · 12.1 Coordination and Response, 12.2 Nervous System. Answer correctly to knock down pins. Wrong answers mean a weak roll or a gutter ball.</p>
+<div class="who"><input id="nm" placeholder="Your name" autocomplete="off" aria-label="Your name"><input id="cl" placeholder="Class (e.g. 4 Sains 1)" autocomplete="off" aria-label="Class" style="max-width:200px"></div>
+<div class="card"><table id="sc"></table></div>
+<div class="lane">
+<svg id="lane" viewBox="0 0 300 300" role="img" aria-label="Bowling lane with ten pins">
+<polygon points="95,10 205,10 270,300 30,300" fill="#c98f4a"/>
+<polygon points="95,10 205,10 270,300 30,300" fill="none" stroke="#a9722f" stroke-width="3"/>
+<g stroke="#a9722f" stroke-width="1" opacity=".5"><line x1="117" y1="10" x2="105" y2="300"/><line x1="139" y1="10" x2="135" y2="300"/><line x1="161" y1="10" x2="165" y2="300"/><line x1="183" y1="10" x2="195" y2="300"/></g>
+<rect x="0" y="0" width="92" height="300" fill="#07101a"/><rect x="208" y="0" width="92" height="300" fill="#07101a"/>
+<g id="pins"></g>
+<g id="ball" style="transform:translate(0,0)"><circle cx="150" cy="270" r="16" fill="#1d3f8f"/><circle cx="145" cy="264" r="2.5" fill="#0a1a44"/><circle cx="152" cy="261" r="2.5" fill="#0a1a44"/><circle cx="153" cy="268" r="2.5" fill="#0a1a44"/><ellipse cx="143" cy="262" rx="5" ry="3" fill="#fff" opacity=".25"/></g>
+</svg>
+<div id="flash"></div>
+</div>
+<div class="card" id="panel" aria-live="polite"></div>
+</div>
+<script>
+const Q=[
+["Which sequence shows the correct pathway of coordination in humans?",["Stimulus → receptor → integration centre → effector → response","Stimulus → effector → receptor → integration centre → response","Receptor → stimulus → effector → integration centre → response","Stimulus → integration centre → receptor → response → effector"],0,"The pathway is stimulus, receptor, integration centre, effector, then response."],
+["A change in the internal or external environment that can be detected by an organism is called a",["response","stimulus","effector","impulse"],1,"A stimulus is any change in the environment that triggers a response."],
+["Which part of the coordination pathway detects the stimulus?",["Effector","Integration centre","Receptor","Response"],2,"Receptors are specialised cells or organs that detect stimuli."],
+["Which of the following are the integration centre in humans?",["Muscles and glands","Brain and spinal cord","Eyes and ears","Sensory neurones"],1,"The brain and spinal cord (the CNS) receive, interpret and coordinate information."],
+["Which of these are effectors?",["Muscles and glands","Skin and tongue","Brain and spinal cord","Eyes and nose"],0,"Effectors, such as muscles and glands, carry out the response."],
+["Which receptor detects light?",["Chemoreceptor","Mechanoreceptor","Photoreceptor","Thermoreceptor"],2,"Photoreceptors in the retina detect light."],
+["Taste buds on the tongue and cells in the nose are examples of",["chemoreceptors","baroreceptors","photoreceptors","nociceptors"],0,"Chemoreceptors detect chemicals, giving us taste and smell."],
+["Which receptor detects touch, pressure and vibration?",["Mechanoreceptor","Chemoreceptor","Photoreceptor","Baroreceptor"],0,"Mechanoreceptors respond to touch, pressure, vibration and sound."],
+["Which receptor detects changes in temperature?",["Nociceptor","Thermoreceptor","Baroreceptor","Photoreceptor"],1,"Thermoreceptors in the skin detect heat and cold."],
+["Nociceptors detect",["pain","light","blood pressure","chemicals"],0,"Nociceptors are pain receptors that detect harmful stimuli."],
+["Baroreceptors detect changes in",["light intensity","blood pressure","pain","chemical smell"],1,"Baroreceptors detect pressure changes, such as blood pressure in blood vessels."],
+["Which two organs make up the central nervous system (CNS)?",["Brain and spinal cord","Brain and nerves","Spinal cord and nerves","Brain and sense organs"],0,"The CNS is the brain and spinal cord."],
+["The peripheral nervous system (PNS) consists of",["brain only","spinal cord only","brain and spinal cord","cranial nerves and spinal nerves"],3,"The PNS is made of nerves branching from the CNS: cranial and spinal nerves."],
+["How many pairs of cranial nerves does a human have?",["12 pairs","31 pairs","8 pairs","24 pairs"],0,"Humans have 12 pairs of cranial nerves and 31 pairs of spinal nerves."],
+["How many pairs of spinal nerves does a human have?",["12 pairs","31 pairs","20 pairs","43 pairs"],1,"Humans have 31 pairs of spinal nerves."],
+["Which part of the brain controls thinking, memory, intelligence and voluntary actions?",["Cerebellum","Medulla oblongata","Cerebrum","Hypothalamus"],2,"The cerebrum is the largest part of the brain and handles thinking, memory and voluntary actions."],
+["Which part of the brain controls body balance and posture and coordinates muscle movement?",["Cerebrum","Cerebellum","Pituitary gland","Spinal cord"],1,"The cerebellum controls balance, posture and smooth muscle coordination, such as when riding a bicycle."],
+["Which part of the brain controls involuntary actions such as breathing and heartbeat?",["Medulla oblongata","Cerebrum","Cerebellum","Hypothalamus"],0,"The medulla oblongata controls involuntary actions such as heartbeat, breathing and peristalsis."],
+["Which part of the brain regulates body temperature, thirst and hunger?",["Cerebellum","Medulla oblongata","Hypothalamus","Cerebrum"],2,"The hypothalamus maintains body temperature, water balance, hunger and thirst."],
+["The hypothalamus controls the secretion of hormones by the",["thyroid gland","pituitary gland","adrenal gland","pancreas"],1,"The hypothalamus controls the pituitary gland, linking the nervous and endocrine systems."],
+["What is the function of the spinal cord?",["Stores memories","Controls balance","Connects the brain to the PNS and coordinates reflex actions","Detects light"],2,"The spinal cord carries impulses between the brain and body and coordinates reflexes."],
+["Which neurone carries impulses from receptors to the CNS?",["Motor neurone","Sensory neurone","Relay neurone","Effector neurone"],1,"Sensory neurones carry impulses from receptors to the CNS."],
+["Which neurone carries impulses from the CNS to effectors?",["Sensory neurone","Relay neurone","Motor neurone","Receptor neurone"],2,"Motor neurones carry impulses from the CNS to muscles or glands."],
+["You touch a very hot cup and feel sharp pain. Which receptor detects the pain?",["Photoreceptor","Chemoreceptor","Baroreceptor","Nociceptor"],3,"Nociceptors detect painful, potentially damaging stimuli."]
+];
+const $=id=>document.getElementById(id);
+let AC,muted=false;
+function ac(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==='suspended')AC.resume();return AC}
+function tone(f,d,type,v,t0,f2){const c=ac();if(!c||muted)return;const o=c.createOscillator(),g=c.createGain(),t=c.currentTime+(t0||0);o.type=type||'sine';o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);g.gain.setValueAtTime(v||.15,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d+.02)}
+function noise(d,v,ft,fq,t0){const c=ac();if(!c||muted)return;const n=Math.floor(c.sampleRate*d),b=c.createBuffer(1,n,c.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=c.createBufferSource(),fl=c.createBiquadFilter(),g=c.createGain(),t=c.currentTime+(t0||0);s.buffer=b;fl.type=ft;fl.frequency.value=fq;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);s.connect(fl);fl.connect(g);g.connect(c.destination);s.start(t)}
+const sfx={good(){tone(660,.15,'triangle',.18);tone(990,.3,'triangle',.18,.12)},bad(){tone(220,.4,'sawtooth',.1,0,90)},roll(){noise(1,.5,'lowpass',260)},
+crash(k){for(let i=0;i<Math.min(k,7);i++){noise(.3,.25,'bandpass',1200+Math.random()*2500,i*.045);tone(800+Math.random()*900,.12,'triangle',.06,i*.045)}if(k>0)noise(.5,.3,'lowpass',500)},
+strike(){[523,659,784,1047,1319].forEach((f,i)=>tone(f,.3,'square',.08,i*.09))},spare(){tone(523,.2,'square',.08);tone(784,.35,'square',.08,.14)},gutter(){tone(130,.6,'sine',.3,0,45)},
+end(){[392,523,659,784].forEach((f,i)=>tone(f,.4,'triangle',.15,i*.15))}};
+$('mute').onclick=function(){muted=!muted;this.textContent=muted?'🔇 Sound off':'🔊 Sound on';this.setAttribute('aria-pressed',muted);if(!muted)ac()};
+const PX=[[110,50],[137,50],[163,50],[190,50],[123,72],[150,72],[177,72],[137,94],[163,94],[150,116]];
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+let frames,f,alive,qs,qi,right,busy;
+function start(){frames=Array.from({length:10},()=>[]);f=0;qs=sh(Q);qi=0;right=0;busy=false;rack();score();ask()}
+function rack(){alive=Array(10).fill(true);$('pins').innerHTML=PX.map((p,i)=>`<g class="pin" id="p${i}"><ellipse cx="${p[0]}" cy="${p[1]+4}" rx="6" ry="9" fill="#f3ecd9"/><circle cx="${p[0]}" cy="${p[1]-8}" r="4.5" fill="#f3ecd9"/><rect x="${p[0]-5}" y="${p[1]-3}" width="10" height="2.5" fill="#ff6a3d"/></g>`).join('');$('ball').style.transition='none';$('ball').style.transform='translate(0,0)'}
+const left=()=>alive.filter(Boolean).length;
+function marks(i){const r=frames[i],o=[];const s=v=>v===0?'-':v;
+if(i<9){if(r[0]===10)return['','X'];return[r[0]===undefined?'':s(r[0]),r[1]===undefined?'':(r[0]+r[1]===10?'/':s(r[1]))]}
+let t=[];r.forEach((v,k)=>{if(v===10)t.push('X');else if(k>0&&r[k-1]!==10&&r[k-1]+v===10&&!(k===2&&r[0]===10&&false))t.push('/');else t.push(s(v))});
+while(t.length<3)t.push('');return t}
+function score(){const fl=frames.flat();let idx=0,cum=0,ok=true,cells=[];
+for(let i=0;i<10;i++){const r=frames[i];let v=null;
+if(ok&&r.length){if(i<9){if(r[0]===10){if(fl[idx+2]!==undefined)v=10+fl[idx+1]+fl[idx+2];idx+=1}
+else{if(r.length===2){if(r[0]+r[1]<10)v=r[0]+r[1];else if(fl[idx+2]!==undefined)v=10+fl[idx+2];idx+=2}else idx+=r.length}}
+else if(done(9))v=r.reduce((a,b)=>a+b,0)}
+else if(i<9&&r.length)idx+=r.length;
+if(v===null)ok=false;else cum+=v;cells.push(v===null?'':cum)}
+window.total=cum;
+$('sc').innerHTML='<tr>'+cells.map((_,i)=>`<th>${i+1}</th>`).join('')+'<th>Total</th></tr><tr>'+cells.map((c,i)=>`<td class="${i===f?'cur':''}"><div class="m">${marks(i).map(m=>`<span>${m}</span>`).join('')}</div><div class="tot">${c}</div></td>`).join('')+`<td><div class="m"><span>&nbsp;</span></div><div class="tot">${cum}</div></td></tr>`}
+function done(i){const r=frames[i];if(i<9)return r[0]===10||r.length===2;return r.length===3||(r.length===2&&r[0]!==10&&r[0]+r[1]<10)}
+function ask(){const [t,o,a]=qs[qi];const order=sh(o.map((x,i)=>i));const r=frames[f].length+1;
+$('panel').innerHTML=`<div class="q"><p class="tag">Frame ${f+1} · Roll ${r} · ${left()} pins standing · Question ${qi+1}</p><h2>${t}</h2><div class="opts">${order.map(i=>`<button class="opt" data-i="${i}">${o[i]}</button>`).join('')}</div><div id="fb"></div></div>`;
+document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b,a))}
+function flash(t){if(t==='STRIKE!')sfx.strike();else if(t==='SPARE!')sfx.spare();else if(t==='GUTTER')sfx.gutter();const e=$('flash');e.textContent=t;e.className='on';setTimeout(()=>e.className='',1300)}
+function pick(b,a){if(busy)return;if(!$('nm').value.trim()){$('nm').focus();$('nm').placeholder='Enter your name first';return}busy=true;const ans=+b.dataset.i,good=ans===a;if(good)right++;sfx[good?'good':'bad']();setTimeout(sfx.roll,350);
+document.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(+x.dataset.i===a)x.classList.add('ok')});if(!good)b.classList.add('no');
+const n=left();let k;
+if(good){k=(n===10&&Math.random()<.6)||n<10?n:7+(Math.random()*3|0);if(k>n)k=n}else k=n===10?Math.random()*4|0:Math.random()*2|0;
+k=Math.min(k,n);
+const x=good?(Math.random()*30-15):(Math.random()<.5?-95:95);
+const bl=$('ball');bl.style.transition='none';bl.style.transform='translate(0,0)';void bl.getBoundingClientRect();
+bl.style.transition='';bl.style.transform=`translate(${x*.5}px,-190px) scale(.6)`;
+setTimeout(()=>{sfx.crash(k);const up=alive.map((v,i)=>v?i:-1).filter(i=>i>=0);sh(up).slice(0,k).forEach(i=>{alive[i]=false;$('p'+i).classList.add('down')});
+frames[f].push(k);const r=frames[f];
+flash(k===0?'GUTTER':(k===10&&r.length===1)||(k===10&&f===9&&r[r.length-2]===10)?'STRIKE!':(left()===0&&r.length>1?'SPARE!':k+' pins'));
+score();
+$('fb').innerHTML=`<p class="fb"><b>${good?'Correct.':'Not quite.'}</b> ${qs[qi][3]}</p><button class="btn" id="nx">${nextLabel()}</button>`;$('nx').onclick=next;$('nx').focus()},1050)}
+function nextLabel(){return done(f)&&f===9?'See final score':'Next roll'}
+function next(){qi=(qi+1)%qs.length;
+if(done(f)){if(f===9){return finish()}f++;rack()}
+else if(f===9&&left()===0)rack();
+else{$('ball').style.transition='none';$('ball').style.transform='translate(0,0)'}
+busy=false;score();ask()}
+function finish(){sfx.end();const t=window.total,rt=`Neuro Bowl | ${$('nm').value.trim()} | ${$('cl').value.trim()||'-'} | Score: ${t} | Correct: ${right}/${frames.flat().length} | ${new Date().toLocaleDateString()}`,m=t>=200?'Neuro champion!':t>=150?'Strong game. You know your nervous system.':t>=100?'Good effort. Review the brain parts and receptors, then roll again.':'Keep practising. Revise 12.1 and 12.2, then try again.';
+$('panel').innerHTML=`<div class="end"><p class="tag">Final score</p><p class="big">${t}</p><p>${right} questions answered correctly.</p><p><b>${m}</b></p><div class="res" id="res">${rt}</div><p class="tag">Take a screenshot of this result, or copy it, and send it to your teacher.</p><button class="btn" id="cp">Copy result</button> <button class="btn" id="again">Play again</button></div>`;$('again').onclick=start;$('cp').onclick=async()=>{try{await navigator.clipboard.writeText(rt);$('cp').textContent='Copied'}catch(e){$('cp').textContent='Copy failed: screenshot instead'}}}
+start();
+</script>
+</body>
+</html>
